@@ -3,6 +3,7 @@ service:
 
 plugins:
   - serverless-plugin-typescript
+  - serverless-dynamodb-local
   - serverless-offline
 
 provider:
@@ -11,7 +12,20 @@ provider:
   memorySize: 256
   stage: ${opt:stage, 'dev'}
   region: eu-west-1
-  
+
+resources:
+  # DynamoDB
+  - ${file(resources/dynamodb-tables.yml)}
+    
+custom:
+  dynamodb:
+    stages:
+        - dev
+    start:
+        port: 8000
+        inMemory: true
+        migrate: true
+
 functions:
   createAuction:
     handler: src/infrastructure/lambdas/api/createAuction.handler
