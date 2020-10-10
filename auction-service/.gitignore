@@ -7,3 +7,15 @@ jspm_packages
 
 # Webpack directories
 .webpack
+
+.build
+
+.nyc_output
+
+coverage
+
+package-lock.json
+
+out-logger.json
+
+.DS_Store

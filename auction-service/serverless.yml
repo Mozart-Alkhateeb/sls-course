@@ -2,8 +2,7 @@ service:
   name: auction-service
 
 plugins:
-  - serverless-bundle
-  - serverless-pseudo-parameters
+  - serverless-plugin-typescript
   - serverless-offline
 
 provider:
@@ -15,8 +14,8 @@ provider:
   
 functions:
   createAuction:
-    handler: src/handlers/createAuction.handler
+    handler: src/infrastructure/lambdas/api/createAuction.handler
     events:
       - http:
-          method: GET
+          method: POST
           path: /auction
