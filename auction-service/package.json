@@ -4,17 +4,24 @@
   "description": "Codingly template for Serverless Framework projects",
   "author": "Mozart Al Khateeb <mozart.alkhateeb@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "serve": "sls offline start --location ''",
+    "debug": "node --inspect node_modules/serverless/bin/serverless offline -s dev"
+  },
   "devDependencies": {
     "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
+    "babel-loader": "^8.1.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "serverless-bundle": "^1.3.3",
+    "eslint": "^7.11.0",
+    "serverless": "^2.6.0",
+    "serverless-bundle": "^3.1.0",
+    "serverless-offline": "^6.8.0",
     "serverless-pseudo-parameters": "^2.5.0",
-    "webpack": "^4.43.0"
+    "webpack": "^4.44.2"
   },
   "dependencies": {
-    "aws-sdk": "^2.717.0"
+    "aws-sdk": "^2.771.0"
   }
 }
