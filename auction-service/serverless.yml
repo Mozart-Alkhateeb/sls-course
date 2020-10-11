@@ -57,7 +57,7 @@ custom:
   AuctionsTable:
     # name: !Ref AuctionsTable # needs aws online
     name: AuctionsTable-${self:provider.stage}
-    arn: !GetAtt AuctionsTable.Arn
+    arn: !GetAtt AuctionsTable.Arn # needs aws online
 
   dynamodb:
     stages:
@@ -67,9 +67,9 @@ custom:
       inMemory: false
       dbPath: .
       migrate: true
-      seed: true
-    seed:
-      domain:
-        sources:
-          - table: ${self:provider.environment.AUCTIONS_TABLE_NAME}
-            sources: [./resources/data/auctions.json]
+    #   seed: true
+    # seed:
+    #   domain:
+    #     sources:
+    #       - table: ${self:provider.environment.AUCTIONS_TABLE_NAME}
+    #         sources: [./resources/data/auctions.json]
