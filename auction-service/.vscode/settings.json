@@ -2,5 +2,18 @@
     "cSpell.words": [
         "Codingly",
         "inversify"
-    ]
+    ],
+    "eslint.format.enable": true,
+    "javascript.format.semicolons": "insert",
+    "javascript.preferences.quoteStyle": "single",
+    "javascript.referencesCodeLens.enabled": true,
+    "javascript.referencesCodeLens.showOnAllFunctions": true,
+    "typescript.format.semicolons": "insert",
+    "typescript.referencesCodeLens.enabled": true,
+    "typescript.referencesCodeLens.showOnAllFunctions": true,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "prettier.singleQuote": true,
+    "typescript.preferences.quoteStyle": "single",
+    "prettier.jsxSingleQuote": true
 }

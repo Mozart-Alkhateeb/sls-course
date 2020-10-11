@@ -48,6 +48,10 @@ functions:
       - http:
           method: PATCH
           path: /auctions/{id}/bid
+  processAuctions:
+    handler: src/handlers/processAuctions.handler
+    # events:
+    #   - schedule: rate(1 minute)
 
 custom:
   AuctionsTable:
@@ -60,7 +64,8 @@ custom:
       - dev
     start:
       port: 8000
-      inMemory: true
+      inMemory: false
+      dbPath: .
       migrate: true
       seed: true
     seed:
