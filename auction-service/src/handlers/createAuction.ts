@@ -15,7 +15,7 @@ async function createAuction(event, context) {
     id: uuid(),
     title,
     status: 'OPEN',
-    createdAd: now.toISOString()
+    createdAt: now.toISOString()
   }
 
   try {

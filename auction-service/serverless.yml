@@ -56,3 +56,9 @@ custom:
       port: 8000
       inMemory: true
       migrate: true
+      seed: true
+    seed:
+      domain:
+        sources:
+          - table: ${self:provider.environment.AUCTIONS_TABLE_NAME}
+            sources: [./resources/data/auctions.json]
