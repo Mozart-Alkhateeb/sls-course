@@ -2,6 +2,7 @@ service:
   name: auction-service
 
 plugins:
+  - serverless-pseudo-parameters
   - serverless-plugin-typescript
   - serverless-dynamodb-local
   - serverless-offline
@@ -12,19 +13,15 @@ provider:
   memorySize: 256
   stage: ${opt:stage, 'dev'}
   region: eu-west-1
+  environment:
+    AUCTIONS_TABLE_NAME: ${self:custom.AuctionsTable.name}
+  iamRoleStatements:
+    - ${file(iam/AuctionsTableIAM.yml):AuctionsTableIAM}
 
 resources:
-  # DynamoDB
-  - ${file(resources/dynamodb-tables.yml)}
-    
-custom:
-  dynamodb:
-    stages:
-        - dev
-    start:
-        port: 8000
-        inMemory: true
-        migrate: true
+  Resources:
+    # DynamoDB
+    AuctionsTable: ${file(resources/AuctionsTable.yml):AuctionsTable}
 
 functions:
   createAuction:
@@ -33,3 +30,17 @@ functions:
       - http:
           method: POST
           path: /auction
+
+custom:
+  AuctionsTable:
+    # name: !Ref AuctionsTable # needs aws online
+    name: AuctionsTable-${self:provider.stage}
+    arn: !GetAtt AuctionsTable.Arn
+
+  dynamodb:
+    stages:
+      - dev
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
