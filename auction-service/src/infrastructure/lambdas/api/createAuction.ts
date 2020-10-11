@@ -1,12 +1,18 @@
-import { LambdaParamHelper } from "../../lambda.helpers";
 import { v4 as uuid } from 'uuid'
+
+import middy from '@middy/core';
+import httpJsonBodyParser from '@middy/http-json-body-parser';
+import httpEventNormalizer from '@middy/http-event-normalizer';
+import httpErrorHandler from '@middy/http-error-handler';
+import createError from 'http-errors';
+
 import { DynamoDbService } from "../../../core/services/dynamo-db.service";
 
 const dynamodb = new DynamoDbService();
 
 async function createAuction(event, context) {
 
-  const { title } = LambdaParamHelper.getPostBody(event);
+  const { title } = event.body;
   const now = new Date();
 
   const auction = {
@@ -16,10 +22,17 @@ async function createAuction(event, context) {
     createdAd: now.toISOString()
   }
 
-  await dynamodb._documentClient.put({
-    TableName: process.env.AUCTIONS_TABLE_NAME,
-    Item: auction
-  }).promise();
+  try {
+    await dynamodb._documentClient.put({
+      TableName: process.env.AUCTIONS_TABLE_NAME,
+      Item: auction
+    }).promise();
+  } catch (error) {
+    console.log(error);
+    throw new createError.InternalServerError(error);
+  }
+
+
 
   return {
     statusCode: 201,
@@ -27,4 +40,7 @@ async function createAuction(event, context) {
   };
 }
 
-export const handler = createAuction;
+export const handler = middy(createAuction)
+  .use(httpJsonBodyParser())
+  .use(httpEventNormalizer())
+  .use(httpErrorHandler());
