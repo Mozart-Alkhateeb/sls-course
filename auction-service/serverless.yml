@@ -29,7 +29,13 @@ functions:
     events:
       - http:
           method: POST
-          path: /auction
+          path: /auctions
+  getAuctions:
+    handler: src/infrastructure/lambdas/api/getAuctions.handler
+    events:
+      - http:
+          method: GET
+          path: /auctions
 
 custom:
   AuctionsTable:
