@@ -36,6 +36,12 @@ functions:
       - http:
           method: GET
           path: /auctions
+  getAuction:
+    handler: src/infrastructure/lambdas/api/getAuction.handler
+    events:
+      - http:
+          method: GET
+          path: /auctions/{id}
 
 custom:
   AuctionsTable:
