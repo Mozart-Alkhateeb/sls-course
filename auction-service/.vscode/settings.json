@@ -1,6 +1,7 @@
 {
     "cSpell.words": [
         "Codingly",
+        "esnext",
         "inversify"
     ],
     "eslint.format.enable": true,
