@@ -1,6 +1,8 @@
 import createError from 'http-errors';
+import validator from '@middy/validator';
 
 import commonMiddleware from '../lib/commonMiddleware';
+import schema from '../lib/schemas/getAuctionsSchema';
 import { DynamoDbService } from "../core/services/dynamo-db.service";
 
 const dynamodb = new DynamoDbService();
@@ -37,4 +39,5 @@ async function getAuctions(event, context) {
     };
 }
 
-export const handler = commonMiddleware(getAuctions);
+export const handler = commonMiddleware(getAuctions)
+    .use(validator({ inputSchema: schema }));
